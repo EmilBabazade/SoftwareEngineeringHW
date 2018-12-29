@@ -12,11 +12,18 @@ var express    = require('express'),
     commentRoutes = require('./routes/commments'),
     indexRoutes = require('./routes/index'),
     methodOverride = require('method-override'),
-    flash = require('connect-flash'); // probabily this de error
+    flash = require('connect-flash');
+
+// set PORT and DATABASEURL if they are not avaible for some reason
+if(!process.env.PORT){
+    process.env.PORT = '3000';
+}
+if(!process.env.DATABASEURL){
+    process.env.DATABASEURL = 'mongodb://localhost:27017/yelp_camp'; 
+}
 
 // seedDB(); // add some starter data (DELETES ALL THE EXISTING DATA AND ADDS NEW DATA!)
-//mongoose.connect('mongodb://localhost:27017/yelp_camp', {useNewUrlParser: true}); // for dev 
-mongoose.connect('mongodb://emil:emil1234@ds145474.mlab.com:45474/yelpcamp', {useNewUrlParser:true}); //for production
+mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
@@ -50,7 +57,5 @@ app.use(indexRoutes);
 
 // start the server
 app.listen(process.env.PORT, () => { 
-    // when running on local machine use 3000 as port
-    // when pushing to production server use process.env.PORT instead
     console.log('Server is running, enter CTRL + C to terminate.');
 });
