@@ -48,6 +48,6 @@ app.use(commentRoutes);
 app.use(indexRoutes);
 
 // start the server
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
     console.log('Server is running, enter CTRL + C to terminate.');
 });
