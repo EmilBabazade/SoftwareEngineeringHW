@@ -1,4 +1,5 @@
-var express    = require('express'),
+var dotenv = require('dotenv').config(),
+    express    = require('express'),
     app        = express(),
     bodyParser = require('body-parser'),
     mongoose   =   require('mongoose'),
@@ -14,15 +15,7 @@ var express    = require('express'),
     methodOverride = require('method-override'),
     flash = require('connect-flash');
 
-// set PORT and DATABASEURL if they are not avaible for some reason
-if(!process.env.PORT){
-    process.env.PORT = '3000';
-}
-if(!process.env.DATABASEURL){
-    process.env.DATABASEURL = 'mongodb://localhost:27017/yelp_camp'; 
-}
-
-// seedDB(); // add some starter data (DELETES ALL THE EXISTING DATA AND ADDS NEW DATA!)
+// seedDB(); // add some starter data (DELETES ALL THE EXISTING DATA AND ADDS NEW DATA!), does not work anymore, change it
 mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
